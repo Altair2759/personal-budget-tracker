@@ -42,7 +42,7 @@ app.post("/register", async (req, res) => {
         await collection.create(data);
         console.log("User registered", data.username);
 
-        res.send("Registration successful!");
+        res.render("dashboard");
     }
 });
 
@@ -53,7 +53,7 @@ app.post("/login", async (req, res) => {
         if (!check) {
             res.send("user name cannot found")
         }else {
-            res.render("home");
+            res.render("dashboard");
         }
     }catch {
         res.send("wrong Details")
