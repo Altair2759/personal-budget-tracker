@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0d0d12;
+    color: #ffff;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    padding: 30px 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.logo {
+    margin-bottom: 45px;
+    text-align: center;
+}
+
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.navbar a {
+    text-decoration: none;
+    padding: 14px 15px;
+    border-radius: 8px;
+
+}
+
+
+.dashboard {
+    margin-left: 250px;
+    padding: 35px;
+    width: calc(100% - 250px);
+}
+
+.dash-header {
+    margin-bottom: 30px;
+}
+
+.dash-header h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+
+.sum-cards {
+    display: flex;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.card {
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #30303d;
+}
+
+
+.dash-charts {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #30303d;
+    min-height: 300px;
+}
+

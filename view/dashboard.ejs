@@ -3,9 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/main.css">
     <title>BudgetPlanner</title>
 </head>
 <body>
-    <h1>This is the dashboard and user succesfulle login or registered and account</h1>
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>BudgetTracler</h1>
+        </div>
+
+        <nav class="navbar">
+            <a>Dashboard</a>
+            <a>Transaction</a>
+            <a>Category</a>
+            <a>Budgets</a>
+            <a>Reports</a>
+        </nav>
+    </aside>
+
+    <main class="dashboard">
+        <header class="dash-header">
+            <h1>Dashboard</h1>
+        </header>
+
+        <section class="sum-cards">
+            <div class="card">
+                <h3>Total Balance</h3>
+                <p>R 0.00</p>
+            </div>
+            <div class="card">
+                <h3>Monthly Income</h3>
+                <p>R 0.00</p>
+            </div>
+            <div class="card">
+                <h3>Monhtly Expense</h3>
+                <p>R 0.00</p>
+            </div>
+            <div class="card">
+                <h3>Remaining Budget</h3>
+                <p>R 0.00</p>
+            </div>
+        </section>
+
+        <section class="dash-charts">
+            <div class="chart-container">
+                <h3>Income vs Expenses</h3>
+                <!-- <canvas id="incomeExpenseChart"></canvas> -->
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Expense Distribution</h3>
+                <canvas id="expenseChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/chart.js"></script>
+
 </html>
