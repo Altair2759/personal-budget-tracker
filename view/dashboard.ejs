@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/main.css">
-    <title>BudgetPlanner</title>
+    <title>BudgetTracker</title>
 </head>
 <body>
     <aside class="sidebar">
         <div class="logo">
-            <h1>BudgetTracler</h1>
+            <h1>BudgetTracker</h1>
         </div>
 
         <nav class="navbar">
-            <a>Dashboard</a>
-            <a>Transaction</a>
-            <a>Category</a>
-            <a>Budgets</a>
+            <a href="/dashboard" class="<%= currentPage === 'dashboard' ? 'active' : '' %>">Dashboard</a>
+            <a href="/transactions">Transaction</a>
+            <a href="/category">Category</a>
+            <a href="/budget">Budgets</a>
             <a>Reports</a>
         </nav>
     </aside>

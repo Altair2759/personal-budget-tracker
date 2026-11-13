@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="/main.css">
+    <title>BudgetTracker</title>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>BudgetTracker</h1>
+        </div>
+
+        <nav class="navbar">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/transactions">Transaction</a>
+            <a href="/category" class="<%= currentPage === 'category' ? 'active' : '' %>">Category</a>
+            <a href="/budget">Budgets</a>
+            <a>Reports</a>
+        </nav>
+    </aside>
+
+    <main class="dashboard">
+        <header class="dash-header">
+            <h1>Category</h1>
+        </header>
+
+        <section class="Transaction-filters">
+            <div class="filter-card"></div>
+            <div class="filter-card">
+                <search>
+                    <form action="/search" method="get">
+                        <input type="search" id="transaction-search" name="q" placeholder="Search" />
+                        <button type="submit" class="search-btn">Search</button>
+                    </form>
+                </search>
+            </div>
+            <div class="filter-card">
+                <button type="submit" class="add-btn">+ Category</button>
+            </div>
+        </section>
+        
+        <section class="transaction-table">
+            <table>
+                <caption>Category</caption>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th></th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jan</td>
+                        <td>R300</td>
+                        <td><button><i class="fa-solid fa-pen"></i></button> <button><i class="fa-solid fa-trash-can"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>Feb</td>
+                        <td>R600</td>
+                        <td><button><i class="fa-solid fa-pen"></i></button> <button><i class="fa-solid fa-trash-can"></i></button></td>
+                        
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total</td>
+                        <td>R900</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+        
+    </main>
+</body>
+</html>

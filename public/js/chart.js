@@ -8,6 +8,11 @@
             label: '# of Votes',
             data: [12, 19, 3, 5, 2, 3],
             borderWidth: 1
+        },
+        {
+            label: '# of negative voters',
+            data: [-14, -2, -45, 23, 5, 60],
+            borderWidth: 1
         }]
         },
         options: {

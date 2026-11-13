@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/main.css">
+    <title>BudgetTracker</title>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>BudgetTracker</h1>
+        </div>
+
+        <nav class="navbar">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/transactions">Transaction</a>
+            <a href="/category">Category</a>
+            <a href="/budget" class="<%= currentPage === 'budget' ? 'active' : '' %>">Budgets</a>
+            <a>Reports</a>
+        </nav>
+    </aside>
+
+    <main class="dashboard">
+        <header class="dash-header">
+            <h1>Budgets</h1>
+        </header>
+
+        <section class="sum-cards">
+            <div class="card">
+                <h3>Total Budget</h3>
+                <p>R 0.00</p>
+            </div>
+            <div class="card">
+                <h3>Total Spent</h3>
+                <p>R 0.00</p>
+            </div>
+            <div class="card">
+                <h3>Remaining</h3>
+                <p>R 0.00</p>
+            </div>
+        </section>
+
+         <section class="Transaction-filters">
+            <div class="filter-card"></div>
+            <div class="filter-card">
+                <search>
+                    <form action="/search" method="get">
+                        <input type="search" id="transaction-search" name="q" placeholder="Search" />
+                        <button type="submit" class="search-btn">Search</button>
+                    </form>
+                </search>
+            </div>
+            <div class="filter-card">
+                <button class="add-btn">+ Budget</button>
+            </div>
+        </section>
+        
+        <section class="budget-columns">
+            <div class="budget-card">
+                <h3>Shopping Budget</h3>
+                <p>R3000</p>
+            </div>
+            <div class="budget-card">
+                <h3>Utilities Budget</h3>
+            </div>
+            <div class="budget-card">
+                <h3>Insurance Budget</h3>
+            </div>
+            <div class="budget-card">
+                <h3>HealthCare Budget</h3>
+            </div>
+        </section>
+    </main>
+
+    
+</body>
+</html>

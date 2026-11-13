@@ -7,21 +7,47 @@ const app = express();
 
 app.use(express.json());
 
+//Express finds the public folder for all images and styles and what frontend wil be using
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.urlencoded({ extended: false }));
 
+//Express finds the pages inside the views as ejs files
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "../view"));
 
+
+// Routing the pages
+//Login page route
 app.get("/", (req, res) => {
     res.render("login");
 });
 
+//Register page route
 app.get("/register", (req, res) => {
     res.render("register");
 });
 
+//Dashboard page route
+app.get("/dashboard", (req, res) => {
+    res.render("dashboard", { currentPage: "dashboard"  });
+});
 
+//Transactions page route
+app.get("/transactions", (req, res) => {
+    res.render("transactions", { currentPage: "transactions"  });
+});
+
+//Category page route
+app.get("/category", (req, res) => {
+    res.render("category", { currentPage: "category"  });
+});
+
+//budget page route
+app.get("/budget", (req, res) => {
+    res.render("budget", { currentPage: "budget"  });
+});
+
+//Handles the register page 
 app.post("/register", async (req, res) => {
     const data = {
         username: req.body.username,
@@ -42,18 +68,18 @@ app.post("/register", async (req, res) => {
         await collection.create(data);
         console.log("User registered", data.username);
 
-        res.render("dashboard");
+        res.redirect("/dashboard");
     }
 });
 
-
+//handles the login page 
 app.post("/login", async (req, res) => {
     try {
         const check = await collection.findOne({ username: req.body.username });
         if (!check) {
             res.send("user name cannot found")
         }else {
-            res.render("dashboard");
+            res.redirect("/dashboard");
         }
     }catch {
         res.send("wrong Details")

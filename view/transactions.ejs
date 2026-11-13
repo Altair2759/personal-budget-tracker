@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/main.css">
+    <title>BudgetTracker</title>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>BudgetTracker</h1>
+        </div>
+
+        <nav class="navbar">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/transactions"  class="<%= currentPage === 'transactions' ? 'active' : '' %>">Transaction</a>
+            <a href="/category">Category</a>
+            <a href="/budget">Budgets</a>
+            <a>Reports</a>
+        </nav>
+    </aside>
+
+    <main class="dashboard">
+        <header class="dash-header">
+            <h1>Transaction</h1>
+        </header>
+
+        <section class="Transaction-filters">
+            <div class="filter-card">
+                <label for="transaction-date">Fiter By Date</label>
+                <input type="date" id="transaction-date" name="transaction-date">
+            </div>
+            <div class="filter-card">
+                <search>
+                    <form action="/search" method="get">
+                        <input type="search" id="transaction-search" name="q" placeholder="Search" />
+                        <button type="submit" class="search-btn">Search</button>
+                    </form>
+                </search>
+            </div>
+            <div class="filter-card">
+                <button type="submit" class="add-btn">+ Transaction</button>
+            </div>
+        </section>
+
+        <section class="transaction-table">
+            <table>
+                <caption>Sample Table</caption>
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Savings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jan</td>
+                        <td>R300</td>
+                    </tr>
+                    <tr>
+                        <td>Feb</td>
+                        <td>R600</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total</td>
+                        <td>R900</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+        
+    </main>
+</body>
+</html>

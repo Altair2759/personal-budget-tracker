@@ -11,6 +11,7 @@ body {
     min-height: 100vh;
 }
 
+/* Navigation Styles */
 .sidebar {
     width: 250px;
     min-height: 100vh;
@@ -18,6 +19,9 @@ body {
     position: fixed;
     left: 0;
     top: 0;
+    border-right: 1px solid rgb(148, 148, 148);
+    border-radius: 10px;
+    background-color: #141415;
 }
 
 .logo {
@@ -36,10 +40,17 @@ body {
     text-decoration: none;
     padding: 14px 15px;
     border-radius: 8px;
+    border: solid 1px #3d98d4;
+    color: rgb(4, 107, 138);
+}
 
+.navbar a.active {
+    border: 2px solid white;
+    color: white;
 }
 
 
+/* Dashboard and some common page Styles */
 .dashboard {
     margin-left: 250px;
     padding: 35px;
@@ -87,3 +98,142 @@ body {
     min-height: 300px;
 }
 
+
+/* Transaction & Category Styles*/
+.Transaction-filters {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.filter-card {
+    /* border: 1px solid #30303d; */
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-card label {
+    display: block;
+    font-size: 13px;
+    color: #aaa8b5;
+    margin-bottom: 10px;
+}
+
+.filter-card input {
+    color: #e5e5e9;
+    background-color: #212128;
+    border: 1px solid #393644;
+    padding: 11px;
+    border-radius: 6px;
+    width: 100%;
+    outline: none;
+}
+
+.filter-card input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+.filter-card form {
+    width: 100%;
+}
+
+
+.search-btn {
+    background-color: #212128;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+
+.filter-card search form {
+    display: flex;
+    /* flex-direction: column; */
+    gap: 8px;
+}
+
+
+.transaction-table {
+    border: 1px solid #302d3b;
+    border-radius: 10px;
+    padding: 25px;
+    overflow-x: auto;
+}
+
+.transaction-table table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+
+.transaction-table caption {
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+
+}
+
+.transaction-table th {
+    color: #b99be8;
+    font-weight: 600;
+    background: #25232e;
+}
+
+.transaction-table th, .transaction-table td {
+    padding: 15px;
+    border-bottom: 1px solid #302d3b;
+}
+
+.transaction-table td {
+    color: #c4c2cc;
+}
+
+.transaction-table tbody tr:hover {
+    background: #25232e;
+}
+
+.transaction-table tfoot {
+    font-weight: bold;
+    color: #c5a3ff;
+}
+
+
+
+/* Budget Page Styles */
+.budget-columns {
+    display: flex;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin: 10px 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.budget-card {
+    padding: 25px;
+    height: 200px;
+    width: 250px;
+    border-radius: 12px;
+    border: 1px solid #30303d;
+}
+
+.add-btn {
+    background-color: #189a32;
+    position: right;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
