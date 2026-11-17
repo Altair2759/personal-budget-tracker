@@ -47,7 +47,7 @@ app.get("/transactions", async (req, res) => {
 });
 
 app.get("/transaction/add", async (req, res) => {
-    const categories = await Categorycollectioncollection.find({userId: req.session.userId});
+    const categories = await Categorycollection.find({userId: req.session.userId});
     res.render("transaction-form", {  transaction: null,  categories: categories});
 });
 

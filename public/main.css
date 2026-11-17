@@ -211,7 +211,7 @@ body {
 
 /* Budget Page Styles */
 .budget-columns {
-    display: flex;
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 40px;
     margin: 10px 10px;
@@ -221,8 +221,8 @@ body {
 
 .budget-card {
     padding: 25px;
-    height: 200px;
-    width: 250px;
+    height: auto;
+    width: auto;
     border-radius: 12px;
     border: 1px solid #30303d;
 }
@@ -232,6 +232,7 @@ body {
     position: right;
     color: white;
     border: none;
+    text-decoration: none;
     padding: 12px 20px;
     border-radius: 6px;
     cursor: pointer;
