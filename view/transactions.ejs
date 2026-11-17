@@ -40,35 +40,31 @@
                 </search>
             </div>
             <div class="filter-card">
-                <button type="submit" class="add-btn">+ Transaction</button>
+                <button type="submit" class="add-btn"><a class="add-btn" href="/transaction/add">+ Transaction</a></button>
             </div>
         </section>
 
         <section class="transaction-table">
             <table>
-                <caption>Sample Table</caption>
+                <caption>Transactions</caption>
                 <thead>
                     <tr>
-                        <th>Month</th>
-                        <th>Savings</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Note</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Jan</td>
-                        <td>R300</td>
-                    </tr>
-                    <tr>
-                        <td>Feb</td>
-                        <td>R600</td>
-                    </tr>
+                    <% transactions.forEach(transaction => { %> 
+                            <tr>
+                                <td><%= transaction.categoryId.name %></td>
+                                <td><%= transaction.type %></td>
+                                <td><%= transaction.amount %></td>
+                                <td><%= transaction.note %></td>
+                            </tr>
+                    <%}) %>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td>Total</td>
-                        <td>R900</td>
-                    </tr>
-                </tfoot>
             </table>
         </section>
         

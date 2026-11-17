@@ -41,8 +41,34 @@ const Categoryschema = new mongoose.Schema({
     }
 });
 
+const Transactionschema = new mongoose.Schema({
+    type: {
+        type: String,
+        required: true
+    },
+    amount: {
+        type: Number,
+        required: true
+    },
+    note: {
+        type: String,
+        required: false
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+        required: true
+    },
+    categoryId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "category",
+        required: true
+    }
+});
+
 
 const Usercollection = new mongoose.model("users", Userschema);
-const Categorycollection = new mongoose.model("category", Categoryschema)
+const Categorycollection = new mongoose.model("category", Categoryschema);
+const Transactioncollection = new mongoose.model("transaction", Transactionschema);
 
-module.exports = { Usercollection, Categorycollection};
+module.exports = { Usercollection, Categorycollection, Transactioncollection};

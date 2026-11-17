@@ -58,26 +58,18 @@
                         <tr>
                             <td><%= category.name %></td>
                             <td><%= category.type %></td>
-                            <td><button><i class="fa-solid fa-pen"></i></button> <button><i class="fa-solid fa-trash-can"></i></button></td>
+                            <td>
+                                <button><a href="/category/edit/<%= category._id %>"><i class="fa-solid fa-pen"></i></a></button>
+                                <form action="/category/del/<%= category._id %>" method="POST" onsubmit="return confirm('Are you sure You want to delete this category?')">
+                                    <button type="submit">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </form>
+                                
+                            </td>
                         </tr>
                     <% }) %>
-                    <tr>
-                        <td>Jan</td>
-                        <td>R300</td>
-                        <td><button><i class="fa-solid fa-pen"></i></button> <button><i class="fa-solid fa-trash-can"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>Feb</td>
-                        <td>R600</td>
-                        <td><button><i class="fa-solid fa-pen"></i></button> <button><i class="fa-solid fa-trash-can"></i></button></td>
-                    </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td>Total</td>
-                        <td>R900</td>
-                    </tr>
-                </tfoot>
             </table>
         </section>
         

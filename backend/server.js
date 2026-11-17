@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
-const {Usercollection, Categorycollection} = require("./models/User");
+const {Usercollection, Categorycollection, Transactioncollection} = require("./models/User");
 
 const app = express();
 
@@ -41,9 +41,16 @@ app.get("/dashboard", (req, res) => {
 
 
 //Transactions page route
-app.get("/transactions", (req, res) => {
-    res.render("transactions", { currentPage: "transactions"  });
+app.get("/transactions", async (req, res) => {
+    const transactions = await Transactioncollection.find({userId: req.session.userId}).populate("categoryId");
+    res.render("transactions", { currentPage: "transactions",  transactions: transactions});
 });
+
+app.get("/transaction/add", async (req, res) => {
+    const categories = await Categorycollectioncollection.find({userId: req.session.userId});
+    res.render("transaction-form", {  transaction: null,  categories: categories});
+});
+
 
 //Category page route
 app.get("/category", async (req, res) => {
@@ -58,9 +65,9 @@ app.get("/category/add", (req, res) => {
 
 app.get("/category/edit/:id", async (req, res) => {
     const category = await Categorycollection.findById(req.params.id);
-
     res.render("category-form", { category: category  });
 });
+
 
 
 //budget page route
@@ -112,17 +119,52 @@ app.post("/login", async (req, res) => {
 });
 
 
+app.post("/transaction/add", async (req, res) => {
+    const data = {
+        type: req.body.type,
+        amount: req.body.amount,
+        note: req.body.note,
+        userId: req.session.userId,
+        categoryId: req.body.categoryId
+    };
+
+    await Transactioncollection.create(data);
+    console.log("Transaction added to db", data.amount, data.type);
+
+    res.redirect("/transactions");
+});
+
+// Category Add Post route/ This is where the data wil be sent to the database after user entered details
 app.post("/category/add", async (req, res) => {
-    // const userId = await Usercollection.findOne({_id: req.body.userId});
-    // console.log("Found user: ", userId);
     const data = {
         name: req.body.name,
         type: req.body.type,
         userId: req.session.userId
     };
-    
     await Categorycollection.create(data);
     console.log("Data addded to database with the followind", data.name, data.type);
+
+    res.redirect("/category");
+});
+
+app.post("/category/edit/:id", async (req, res) => {
+    const data = {
+        name: req.body.name,
+        type: req.body.type,
+    };
+
+    await Categorycollection.findByIdAndUpdate(req.params.id, data);
+
+    res.redirect("/category");
+});
+
+app.post("/category/del/:id", async (req, res) => {
+    try {
+        await Categorycollection.findByIdAndDelete(req.params.id);
+        
+    }catch (err) {
+        console.log(err);
+    };
 
     res.redirect("/category");
 });
