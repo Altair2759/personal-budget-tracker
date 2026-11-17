@@ -38,7 +38,7 @@
                 </search>
             </div>
             <div class="filter-card">
-                <button type="submit" class="add-btn">+ Category</button>
+                <button class="add-btn"><a class="add-btn" href="/category/add">+ Category</a></button>
             </div>
         </section>
         
@@ -54,6 +54,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <% categories.forEach(category => { %>
+                        <tr>
+                            <td><%= category.name %></td>
+                            <td><%= category.type %></td>
+                            <td><button><i class="fa-solid fa-pen"></i></button> <button><i class="fa-solid fa-trash-can"></i></button></td>
+                        </tr>
+                    <% }) %>
                     <tr>
                         <td>Jan</td>
                         <td>R300</td>
@@ -63,7 +70,6 @@
                         <td>Feb</td>
                         <td>R600</td>
                         <td><button><i class="fa-solid fa-pen"></i></button> <button><i class="fa-solid fa-trash-can"></i></button></td>
-                        
                     </tr>
                 </tbody>
                 <tfoot>

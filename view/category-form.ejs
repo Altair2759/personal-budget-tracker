@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <h1>
+            <%= category? "Edit category" : "Add category" %>
+        </h1>
+
+<form action="<%= category ? '/category/edit/' + category._id : '/category/add' %>" method="POST">
+
+    <label>Name</label>
+    <input
+        type="text"
+        name="name"
+        value="<%= category ? category.name : '' %>"
+        required
+    >
+
+    <label>Type</label>
+    <input
+        type="text"
+        name="type"
+        value="<%= category ? category.type : '' %>"
+    >
+
+    <button type="submit">
+        <%= category ? "Update Category" : "Add Category" %>
+    </button>
+
+</form>
+
+        
+</body>
+</html>

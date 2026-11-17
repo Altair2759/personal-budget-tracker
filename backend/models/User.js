@@ -25,7 +25,24 @@ const Userschema = new mongoose.Schema({
     }
 });
 
+const Categoryschema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+        required: true
+    }
+});
 
-const collection = new mongoose.model("users", Userschema);
 
-module.exports = collection;
+const Usercollection = new mongoose.model("users", Userschema);
+const Categorycollection = new mongoose.model("category", Categoryschema)
+
+module.exports = { Usercollection, Categorycollection};

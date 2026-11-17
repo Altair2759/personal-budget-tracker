@@ -1,11 +1,18 @@
 const express = require("express");
 const path = require("path");
 const bcrypt = require("bcrypt");
-const collection = require("./models/User");
+const session = require("express-session");
+const {Usercollection, Categorycollection} = require("./models/User");
 
 const app = express();
 
 app.use(express.json());
+
+app.use(session({
+    secret: "My-secret-code",
+    resave: false,
+    saveUninitialized: false
+}));
 
 //Express finds the public folder for all images and styles and what frontend wil be using
 app.use(express.static(path.join(__dirname, "../public")));
@@ -32,15 +39,29 @@ app.get("/dashboard", (req, res) => {
     res.render("dashboard", { currentPage: "dashboard"  });
 });
 
+
 //Transactions page route
 app.get("/transactions", (req, res) => {
     res.render("transactions", { currentPage: "transactions"  });
 });
 
 //Category page route
-app.get("/category", (req, res) => {
-    res.render("category", { currentPage: "category"  });
+app.get("/category", async (req, res) => {
+    const categories = await Categorycollection.find({userId: req.session.userId});
+    res.render("category", { currentPage: "category", categories: categories  });
 });
+
+
+app.get("/category/add", (req, res) => {
+    res.render("category-form", {  category: null });
+});
+
+app.get("/category/edit/:id", async (req, res) => {
+    const category = await Categorycollection.findById(req.params.id);
+
+    res.render("category-form", { category: category  });
+});
+
 
 //budget page route
 app.get("/budget", (req, res) => {
@@ -55,7 +76,7 @@ app.post("/register", async (req, res) => {
         password: req.body.password
     }
 
-    const existingUser = await collection.findOne({ username: data.username });
+    const existingUser = await Usercollection.findOne({ username: data.username });
 
     if (existingUser) {
         res.send('User already exists. Please choose a different username.')
@@ -65,25 +86,45 @@ app.post("/register", async (req, res) => {
 
         data.password = hashedPassword;
 
-        await collection.create(data);
+        await Usercollection.create(data);
         console.log("User registered", data.username);
 
         res.redirect("/dashboard");
     }
 });
 
+
+// Note: Fix password verification.
+
 //handles the login page 
 app.post("/login", async (req, res) => {
     try {
-        const check = await collection.findOne({ username: req.body.username });
+        const check = await Usercollection.findOne({ username: req.body.username });
         if (!check) {
             res.send("user name cannot found")
         }else {
+            req.session.userId = check._id;
             res.redirect("/dashboard");
         }
     }catch {
         res.send("wrong Details")
     }
+});
+
+
+app.post("/category/add", async (req, res) => {
+    // const userId = await Usercollection.findOne({_id: req.body.userId});
+    // console.log("Found user: ", userId);
+    const data = {
+        name: req.body.name,
+        type: req.body.type,
+        userId: req.session.userId
+    };
+    
+    await Categorycollection.create(data);
+    console.log("Data addded to database with the followind", data.name, data.type);
+
+    res.redirect("/category");
 });
 
 
