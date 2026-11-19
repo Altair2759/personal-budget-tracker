@@ -29,15 +29,15 @@
         <section class="sum-cards">
             <div class="card">
                 <h3>Total Budget</h3>
-                <p>R 0.00</p>
+                <p>R <%= totalBudget.toFixed(2) %></p>
             </div>
             <div class="card">
                 <h3>Total Spent</h3>
-                <p>R 0.00</p>
+                <p>R <%= totalBudgetSpent.toFixed(2) %></p>
             </div>
             <div class="card">
                 <h3>Remaining</h3>
-                <p>R 0.00</p>
+                <p>R <%= remaining.toFixed(2) %></p>
             </div>
         </section>
 
@@ -60,6 +60,7 @@
             <% budgets.forEach(budget => { %> 
                 <div class="budget-card">
                     <h3><%= budget.categoryId.name %></h3>
+                    <p><%= new Date(2000, budget.month -1).toLocaleString('en-ZA', { month: 'long' }) %> <%= budget.year %></p>
                     <p>Budget: R <%= budget.amount %></p>
                     <p>TotalSpent: R <%= budget.totalSpent %></p>
                     

@@ -63,6 +63,10 @@ const Transactionschema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "category",
         required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 });
 
@@ -79,6 +83,16 @@ const Budgetschema = new mongoose.Schema({
     categoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "category",
+        required: true
+    },
+    month: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 12
+    },
+    year: {
+        type: Number,
         required: true
     }
 

@@ -78,7 +78,9 @@ app.get("/budget", async (req, res) => {
 
     const budgetWithSpent = budgets.map(budget => {
         const filterTransactions = transactions.filter(transaction => {
-            return transaction.categoryId.toString() === budget.categoryId._id.toString();
+            return transaction.categoryId.toString() === budget.categoryId._id.toString()
+            && transaction.date.getMonth() + 1 === budget.month
+            && transaction.date.getFullYear() === budget.year;
         });
 
         const totalSpent = filterTransactions.reduce((total, transaction) => {
@@ -91,7 +93,19 @@ app.get("/budget", async (req, res) => {
         };
     });
 
-    res.render("budget", { currentPage: "budget", budgets: budgetWithSpent  });
+
+    const totalBudget = budgetWithSpent.reduce((total, budget) => {
+        return total + budget.amount;
+    }, 0);
+
+    const totalBudgetSpent = budgetWithSpent.reduce((total, budget) => {
+        return total + budget.totalSpent;
+    }, 0);
+
+    const remaining = totalBudget - totalBudgetSpent;
+
+
+    res.render("budget", { currentPage: "budget", budgets: budgetWithSpent, totalBudget, totalBudgetSpent, remaining  });
 });
 
 app.get("/budget/add", async (req, res) => {
@@ -202,6 +216,8 @@ app.post("/budget/add", async (req, res) => {
         amount: req.body.amount,
         userId: req.session.userId,
         categoryId: req.body.categoryId,
+        month: new Date().getMonth() + 1,
+        year: new Date().getFullYear()
     };
 
     await Budgetcollection.create(data);
