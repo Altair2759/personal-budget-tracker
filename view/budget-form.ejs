@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <h1>
+            Add Budget
+        </h1>
+
+<form action="/budget/add" method="POST">
+
+    <label>Category</label>
+    <select name="categoryId" required>
+        <% categories.forEach(category => { %>
+            <option value="<%= category._id %>">
+                <%= category.name %>
+            </option>
+        <% }) %>
+    </select>
+
+    <label>Amount</label>
+    <input
+        type="number"
+        name="amount"
+        required
+    >
+
+    <button type="submit">
+        Add Budget
+    </button>
+
+</form>
+
+        
+</body>
+</html>

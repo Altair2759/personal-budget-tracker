@@ -66,9 +66,29 @@ const Transactionschema = new mongoose.Schema({
     }
 });
 
+const Budgetschema = new mongoose.Schema({
+    amount: {
+        type: Number,
+        required: true
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+        required: true
+    },
+    categoryId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "category",
+        required: true
+    }
+
+});
+
+
 
 const Usercollection = new mongoose.model("users", Userschema);
 const Categorycollection = new mongoose.model("category", Categoryschema);
 const Transactioncollection = new mongoose.model("transaction", Transactionschema);
+const Budgetcollection = new mongoose.model("budget", Budgetschema);
 
-module.exports = { Usercollection, Categorycollection, Transactioncollection};
+module.exports = { Usercollection, Categorycollection, Transactioncollection, Budgetcollection };

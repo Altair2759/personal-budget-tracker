@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
-const {Usercollection, Categorycollection, Transactioncollection} = require("./models/User");
+const {Usercollection, Categorycollection, Transactioncollection, Budgetcollection} = require("./models/User");
 
 const app = express();
 
@@ -71,9 +71,35 @@ app.get("/category/edit/:id", async (req, res) => {
 
 
 //budget page route
-app.get("/budget", (req, res) => {
-    res.render("budget", { currentPage: "budget"  });
+app.get("/budget", async (req, res) => {
+    const budgets = await Budgetcollection.find({userId: req.session.userId}).populate("categoryId");
+    const transactions = await Transactioncollection.find({userId: req.session.userId}); 
+
+
+    const budgetWithSpent = budgets.map(budget => {
+        const filterTransactions = transactions.filter(transaction => {
+            return transaction.categoryId.toString() === budget.categoryId._id.toString();
+        });
+
+        const totalSpent = filterTransactions.reduce((total, transaction) => {
+            return total + Number(transaction.amount);
+        }, 0); 
+
+        return {
+            ...budget.toObject(),
+            totalSpent: totalSpent
+        };
+    });
+
+    res.render("budget", { currentPage: "budget", budgets: budgetWithSpent  });
 });
+
+app.get("/budget/add", async (req, res) => {
+    const categories = await Categorycollection.find({userId: req.session.userId});
+    // const transactions = await Transactioncollection.find({userId: req.session.userId});
+    res.render("budget-form", { budget: null, categories: categories });
+});
+
 
 //Handles the register page 
 app.post("/register", async (req, res) => {
@@ -92,6 +118,7 @@ app.post("/register", async (req, res) => {
         const hashedPassword = await bcrypt.hash(data.password, saltRounds);
 
         data.password = hashedPassword;
+        req.session.userId = check._id;
 
         await Usercollection.create(data);
         console.log("User registered", data.username);
@@ -168,6 +195,21 @@ app.post("/category/del/:id", async (req, res) => {
 
     res.redirect("/category");
 });
+
+
+app.post("/budget/add", async (req, res) => {
+    const data = {
+        amount: req.body.amount,
+        userId: req.session.userId,
+        categoryId: req.body.categoryId,
+    };
+
+    await Budgetcollection.create(data);
+    console.log("Budget added to db", data.amount);
+
+    res.redirect("/budget");
+});
+
 
 
 const port = 5000;
