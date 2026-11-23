@@ -66,7 +66,6 @@ body {
     margin-bottom: 8px;
 }
 
-
 .sum-cards {
     display: flex;
     grid-template-columns: repeat(4, 1fr);
@@ -76,13 +75,11 @@ body {
     align-items: center;
 }
 
-
 .card {
     padding: 25px;
     border-radius: 12px;
     border: 1px solid #30303d;
 }
-
 
 .dash-charts {
     display: grid;
@@ -96,6 +93,16 @@ body {
     border-radius: 12px;
     border: 1px solid #30303d;
     min-height: 300px;
+}
+
+.budget-warning {
+    width: fit-content;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #292922;
+    border: 1px solid #625b3c;
+    border-radius: 10px;
+    color: #e5e5e5;
 }
 
 
@@ -156,7 +163,6 @@ body {
 
 .filter-card search form {
     display: flex;
-    /* flex-direction: column; */
     gap: 8px;
 }
 
@@ -184,9 +190,9 @@ body {
 }
 
 .transaction-table th {
-    color: #b99be8;
+    color: #2ac1d8;
     font-weight: 600;
-    background: #25232e;
+    background: #2a4a63;
 }
 
 .transaction-table th, .transaction-table td {
@@ -199,24 +205,54 @@ body {
 }
 
 .transaction-table tbody tr:hover {
-    background: #25232e;
+    background: #2a4a6397;
 }
 
-.transaction-table tfoot {
-    font-weight: bold;
-    color: #c5a3ff;
+
+/* Category form styles */
+.category-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
+.edit-btn, .delete-btn {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.edit-btn {
+    background-color: #3d98d453;
+    color: #3d98d4;
+    border: 1px solid #3d98d4;
+    text-decoration: none;
+}
+
+.delete-form {
+    margin: 0;
+}
+
+.delete-btn {
+    background-color: #302124;
+    color: #e87979;
+    border: 1px solid #61383d;
+}
 
 
 /* Budget Page Styles */
 .budget-columns {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-    margin: 10px 10px;
-    justify-content: center;
-    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 22px;
+    margin: 10px 0px;
+    align-items: stretch;
 }
 
 .budget-card {
@@ -225,6 +261,7 @@ body {
     width: auto;
     border-radius: 12px;
     border: 1px solid #30303d;
+    background-color: #111111;
 }
 
 .add-btn {
@@ -237,4 +274,77 @@ body {
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
+}
+
+.budget-card-header {
+    margin-bottom: 25px;
+}
+
+.budget-card-header h3 {
+    font-size: 19px;
+    margin-bottom: 8px;
+    color: #3d98d4;
+}
+
+.budget-card-header span {
+    font-size: 13px;
+    color: #aaa8b5;
+}
+
+.budget-amounts {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.budget-amounts span {
+    font-size: 12px;
+    color: #aaa8b5;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.budget-amounts p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e5e5e9;
+}
+
+.budget-progress {
+    margin-bottom: 15px;
+}
+
+.budget-progress progress {
+    width: 100%;
+    height: 10px;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+
+/* This is because Firefox crome and edge uses different progress bar styles */
+.budget-progress progress ::-webkit-progress-bar {
+    background-color: #3d98d4;
+    border-radius: 10px;
+}
+
+.budget-progress progress::-webkit-progress-value {
+    background-color: #3d98d4;
+    border-radius: 10px;
+}
+
+
+.budget-progress progress::-moz-progress-bar {
+    background-color: #3d98d4;
+    border-radius: 10px;
+}
+
+.budget-ramining {
+    font-size: 13px;
+    color: #aaa8b5;
+    text-align: right;
 }

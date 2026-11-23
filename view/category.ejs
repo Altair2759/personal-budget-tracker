@@ -58,10 +58,10 @@
                         <tr>
                             <td><%= category.name %></td>
                             <td><%= category.type %></td>
-                            <td>
-                                <button><a href="/category/edit/<%= category._id %>"><i class="fa-solid fa-pen"></i></a></button>
-                                <form action="/category/del/<%= category._id %>" method="POST" onsubmit="return confirm('Are you sure You want to delete this category?')">
-                                    <button type="submit">
+                            <td class="category-actions">
+                                <a class="edit-btn" href="/category/edit/<%= category._id %>"><i class="fa-solid fa-pen"></i></a>
+                                <form class="delete-form" action="/category/del/<%= category._id %>" method="POST" onsubmit="return confirm('Are you sure You want to delete this category?')">
+                                    <button type="submit" class="delete-btn">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
                                 </form>

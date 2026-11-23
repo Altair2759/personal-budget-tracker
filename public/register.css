@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #0d0d12;
+    background-color: #0b111a;
     color: #ffff;
     min-height: 100vh;
 }
@@ -20,7 +20,7 @@ main {
 /* left Section */
 .welcome-section {
     width: 50%;
-    background: linear-gradient(145deg, #211a35, #11111a);
+    background: #101e2b;
     padding: 50px;
     display: flex;
     flex-direction: column;
@@ -34,7 +34,7 @@ main {
 
 .brand h1 {
     font-size: 32px;
-    color: #b49aff;
+    color: #38a6d7;
     letter-spacing: 1px;
 }
 
@@ -54,15 +54,18 @@ main {
     width: 80%;
     max-width: 450px;
     height: auto;
+    opacity: 0.75;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
+
 
 .welcome-text {
     max-width: 450px;
     margin: 0 auto;
-    text-align: center;
-    color: #b5b3c2;
-    font-size: 16px;
-    line-height: 1.7;
+    text-align: left;
+    color: #a9bacb;
+    font-size: 18px;
+    line-height: 1.5;
 }
 
 
@@ -73,7 +76,7 @@ main {
     justify-content: center;
     align-items: center;
     padding: 40px;
-    background-color: #13131b;
+    background-color: #111a27;
 }
 
 form {
@@ -106,9 +109,9 @@ form p {
     display: flex;
     justify-content: space-between;
     padding: 13px;
-    border: 1px solid #383746;
+    border: 1px solid #30465c;
     border-radius: 8px;
-    background-color: #1c1b27;
+    background-color: #19283a;
     color: #ffff;
     font-size: 14px;
     cursor: pointer;
@@ -118,7 +121,7 @@ form p {
 
 form hr {
     border: none;
-    border-top: 1px solid #353442;
+    border-top: 1px solid #30465c;
     margin: 10px 0;
 }
 
@@ -128,15 +131,15 @@ form h3 {
 
 form label {
     font-size: 14px;
-    color: #c5c3d1;
+    color: #b7c9da;
     margin-bottom: -12px;
 }
 
 form input {
     width: 100%;
     padding: 13px;
-    background-color: #1c1b27;
-    border: 1px solid #383746;
+    background-color: #19283a;
+    border: 1px solid #30465c;
     border-radius: 8px;
     color: white;
     font-size: 15px;
@@ -147,7 +150,7 @@ form input {
 
 form button[type="submit"] {
     padding: 14px;
-    background-color: #8b5cf6;
+    background-color: #19283a;
     border: none;
     border-radius: 8px;
     color: white;
@@ -159,7 +162,7 @@ form button[type="submit"] {
 
 
 form a {
-    color: #a78bfa;
+    color: #42b4e8;
     text-align: center;
     text-decoration: none;
     font-size: 14px;

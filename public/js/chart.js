@@ -1,26 +1,31 @@
+ const dashboardData = JSON.parse(
+    document.getElementById("dashboardData").textContent
+);
+ 
  const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
         type: 'bar',
         data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: dashboardData.monthlyData.map(m => m.label),
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Income',
+            data: dashboardData.monthlyData.map(m => m.income),
             borderWidth: 1
         },
         {
-            label: '# of negative voters',
-            data: [-14, -2, -45, 23, 5, 60],
+            label: 'Expenses',
+            data: dashboardData.monthlyData.map(m => m.expense),
             borderWidth: 1
         }]
         },
         options: {
-        scales: {
-            y: {
-            beginAtZero: true
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
             }
-        }
         }
     });
 
@@ -30,18 +35,15 @@
     new Chart(piechart, {
         type: 'pie',
         data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: dashboardData.expenseLabels,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Expenses',
+            data: dashboardData.expenseValues,
             borderWidth: 1
         }]
         },
         options: {
-        scales: {
-            y: {
-            beginAtZero: true
-            }
-        }
-        }
+            responsive: true,
+        },
+        
     });

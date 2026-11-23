@@ -6,6 +6,15 @@ const {Usercollection, Categorycollection, Transactioncollection, Budgetcollecti
 
 const app = express();
 
+function formatCurrency(amount) {
+    return "R " + Number(amount).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+app.locals.formatCurrency = formatCurrency;
+
 app.use(express.json());
 
 app.use(session({
@@ -35,8 +44,98 @@ app.get("/register", (req, res) => {
 });
 
 //Dashboard page route
-app.get("/dashboard", (req, res) => {
-    res.render("dashboard", { currentPage: "dashboard"  });
+app.get("/dashboard", async (req, res) => {
+    const userId = req.session.userId;
+
+    const transactions = await Transactioncollection.find({userId}).populate("categoryId");
+
+
+    const budgets = await Budgetcollection.find({userId, month: new Date().getMonth() + 1, year: new Date().getFullYear()}).populate("categoryId");
+
+    //Total income and expenses
+    const income = transactions.filter(t => t.type === "Income").reduce((total, t) => total + Number(t.amount), 0);
+
+    const expenses = transactions.filter(t => t.type === "Expense").reduce((total, t) => total + Number(t.amount), 0);
+
+    const balance = income - expenses;
+
+    //current month transactions
+    const now = new Date();
+
+    const currentMonthTransactions = transactions.filter(t => {
+        return t.date.getMonth() === now.getMonth() && t.date.getFullYear() === now.getFullYear();
+
+    });
+
+    const monthlyIncome = currentMonthTransactions.filter(t => t.type === "Income").reduce((total, t) => total + Number(t.amount), 0);
+
+    const monthlyExpense = currentMonthTransactions.filter(t => t.type === "Expense").reduce((total, t) => total + Number(t.amount), 0);
+
+
+    //Calculate current months budget spending
+    const budgetWithSpent = budgets.map(budget => {
+        const spent = currentMonthTransactions.filter(t => t.type === "Expense" 
+            && t.categoryId 
+            && t.categoryId._id.toString() === budget.categoryId._id.toString()
+        ).reduce((total, t) => total + Number(t.amount), 0);
+
+        return {
+            categoryId: budget.categoryId,
+            amount: Number(budget.amount),
+            spent: spent
+        };
+
+    });
+
+    const budgetWarnings = budgetWithSpent.filter(b => (b.spent / b.amount) * 100 >= 80);
+
+    const totalBudget = budgetWithSpent.reduce((total, b) => total + b.amount, 0);
+
+    const totalSpent = budgetWithSpent.reduce((total, b) => total + b.spent, 0);
+
+    const remainingBudget = totalBudget - totalSpent;
+
+    //last six months
+    const monthlyData = [];
+
+    for (let i = 5; i >= 0; i--) {
+        const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+
+        const month = date.getMonth();
+        const year = date.getFullYear();
+
+        const monthTransactions = transactions.filter(t => {
+            return t.date && t.date.getMonth() === month && t.date.getFullYear() === year;
+        });
+
+        const monthIncome = monthTransactions.filter(t => t.type === "Income").reduce((total, t) => total + Number(t.amount), 0);
+
+        const monthExpense = monthTransactions.filter(t => t.type === "Expense").reduce((total, t) => total + Number(t.amount), 0);
+
+        monthlyData.push({
+            label: date.toLocaleString("en-ZA", {month: "short"}),
+            income: monthIncome,
+            expense: monthExpense
+        });
+    }
+
+    //Expense distrubution by category for current month
+    const categoryData = {};
+
+    currentMonthTransactions.filter(t => t.type === "Expense" && t.categoryId).forEach(t => {
+        const categoryName = t.categoryId.name;
+
+        if (!categoryData[categoryName]) {
+            categoryData[categoryName] = 0;
+        }
+        categoryData[categoryName] += Number(t.amount);
+    });
+
+    const expenseLabels = Object.keys(categoryData);
+    const expenseValues = Object.values(categoryData);
+
+
+    res.render("dashboard", { currentPage: "dashboard", balance, monthlyIncome, monthlyExpense, remainingBudget, monthlyData, expenseLabels, expenseValues, budgetWarnings  });
 });
 
 
@@ -132,10 +231,12 @@ app.post("/register", async (req, res) => {
         const hashedPassword = await bcrypt.hash(data.password, saltRounds);
 
         data.password = hashedPassword;
-        req.session.userId = check._id;
+        
+        const newUser = await Usercollection.create(data);
 
-        await Usercollection.create(data);
-        console.log("User registered", data.username);
+        req.session.userId = newUser._id;
+
+        console.log("User registered", newUser.username);
 
         res.redirect("/dashboard");
     }
@@ -148,12 +249,17 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
     try {
         const check = await Usercollection.findOne({ username: req.body.username });
+        const passwordMatch = await bcrypt.compare(req.body.password, check.password);
         if (!check) {
             res.send("user name cannot found")
-        }else {
-            req.session.userId = check._id;
-            res.redirect("/dashboard");
         }
+        if (!passwordMatch) {
+            return res.send("Incorrect password");
+        }
+
+        req.session.userId = check._id;
+        res.redirect("/dashboard");
+        
     }catch {
         res.send("wrong Details")
     }
@@ -162,6 +268,7 @@ app.post("/login", async (req, res) => {
 
 app.post("/transaction/add", async (req, res) => {
     const data = {
+        date: req.body.date,
         type: req.body.type,
         amount: req.body.amount,
         note: req.body.note,

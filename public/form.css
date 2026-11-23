@@ -1,0 +1,77 @@
+body {
+    background-color: #1c1c22;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 550px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #1c1c22;
+    border: 1px solid #33333d;
+    border-radius: 12px;
+}
+
+
+.form-container h1 {
+    margin-bottom: 25px;
+    color: #e4e4e7;
+    font-size: 26px;
+}
+
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+.form-container label {
+    color: #b8b8c2;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+.form-container input, 
+.form-container select,
+.form-container textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background-color: #27272f;
+    color: #e4e4e7;
+    border: 1px solid #3a3a45;
+    border-radius: 7px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+    border-color: #8b8b99;
+    background-color: #2c2c35;
+}
+
+.form-container select {
+    cursor: pointer;
+}
+
+.form-container button {
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #383841;
+    color: #f1f1f3;
+    border: 1px solid #454550;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.form-container button:hover {
+    background-color: #484852;
+}

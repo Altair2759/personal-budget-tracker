@@ -29,15 +29,15 @@
         <section class="sum-cards">
             <div class="card">
                 <h3>Total Budget</h3>
-                <p>R <%= totalBudget.toFixed(2) %></p>
+                <p><%= formatCurrency(totalBudget.toFixed(2)) %></p>
             </div>
             <div class="card">
                 <h3>Total Spent</h3>
-                <p>R <%= totalBudgetSpent.toFixed(2) %></p>
+                <p><%= formatCurrency(totalBudgetSpent.toFixed(2)) %></p>
             </div>
             <div class="card">
                 <h3>Remaining</h3>
-                <p>R <%= remaining.toFixed(2) %></p>
+                <p><%= formatCurrency(remaining.toFixed(2)) %></p>
             </div>
         </section>
 
@@ -52,36 +52,42 @@
                 </search>
             </div>
             <div class="filter-card">
-                <button class="add-btn"><a class="add-btn" href="/budget/add">+ Budget</a></button>
+                <a class="add-btn" href="/budget/add">+ Budget</a>
             </div>
         </section>
         
         <section class="budget-columns">
             <% budgets.forEach(budget => { %> 
                 <div class="budget-card">
-                    <h3><%= budget.categoryId.name %></h3>
-                    <p><%= new Date(2000, budget.month -1).toLocaleString('en-ZA', { month: 'long' }) %> <%= budget.year %></p>
-                    <p>Budget: R <%= budget.amount %></p>
-                    <p>TotalSpent: R <%= budget.totalSpent %></p>
+                    <div class="budget-card-header">
+                        <h3><%= budget.categoryId.name %></h3>
+                        <span>
+                            <%= new Date(2000, budget.month -1).toLocaleString('en-ZA', { month: 'long' }) %> 
+                            <%= budget.year %>
+                        </span>
+                    </div>
+
+                    <div class="budget-amounts">
+                        <div>
+                            <span>Budget</span>
+                            <p><%= formatCurrency(budget.amount) %></p>
+                        </div>
+                        <div>
+                            <span>Spent</span>
+                            <p><%= formatCurrency(budget.totalSpent) %></p>
+                        </div>
+                    </div>
                     
-                    <progress value="<%= budget.totalSpent %>" max="<%= budget.amount %>"></progress>
                     
+                    <div class="budget-progress">
+                        <progress value="<%= budget.totalSpent %>" max="<%= budget.amount %>"></progress>
+                    </div>
                     
+                    <p class="budget-remaining">
+                        Remaining: <%= formatCurrency(budget.amount - budget.totalSpent) %>
+                    </p>
                 </div>
             <%}) %>
-            
-            <div class="budget-card">
-                <h3>Utilities Budget</h3>
-                <progress value="1000" max="3000"></progress>
-            </div>
-            <div class="budget-card">
-                <h3>Insurance Budget</h3>
-                <progress value="1000" max="3000"></progress>
-            </div>
-            <div class="budget-card">
-                <h3>HealthCare Budget</h3>
-                <progress value="1000" max="3000"></progress>
-            </div>
             
         </section>
     </main>

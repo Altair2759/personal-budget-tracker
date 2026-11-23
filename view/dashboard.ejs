@@ -24,24 +24,34 @@
     <main class="dashboard">
         <header class="dash-header">
             <h1>Dashboard</h1>
+
+            <% if (budgetWarnings.length > 0) { %>
+                <div class="budget-warning">
+                    <h3>Budget Warnings</h3>
+                    <% budgetWarnings.forEach(b => { %>
+                        <p><%= b.categoryId.name %> - <%= ((b.spent / b.amount) * 100).toFixed(0) %>% used</p>
+                    <%}) %>
+                </div>
+            <% } %>
+
         </header>
 
         <section class="sum-cards">
             <div class="card">
                 <h3>Total Balance</h3>
-                <p>R 0.00</p>
+                <p><%= formatCurrency(balance.toFixed(2)) %></p>
             </div>
             <div class="card">
                 <h3>Monthly Income</h3>
-                <p>R 0.00</p>
+                <p><%= formatCurrency(monthlyIncome.toFixed(2)) %></p>
             </div>
             <div class="card">
                 <h3>Monhtly Expense</h3>
-                <p>R 0.00</p>
+                <p><%= formatCurrency(monthlyExpense.toFixed(2)) %></p>
             </div>
             <div class="card">
                 <h3>Remaining Budget</h3>
-                <p>R 0.00</p>
+                <p><%= formatCurrency(remainingBudget.toFixed(2)) %></p>
             </div>
         </section>
 
@@ -60,6 +70,11 @@
 
     
 </body>
+
+<script id="dashboardData" type="application/json">
+    <%- JSON.stringify({monthlyData, expenseLabels, expenseValues}) %>
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/chart.js"></script>
 

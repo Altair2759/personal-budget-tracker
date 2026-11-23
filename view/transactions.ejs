@@ -62,7 +62,7 @@
                                 <td><%= transaction.date.toLocaleDateString('en-ZA') %></td>
                                 <td><%= transaction.categoryId.name %></td>
                                 <td><%= transaction.type %></td>
-                                <td>R <%= transaction.amount %></td>
+                                <td><%= formatCurrency(transaction.amount) %></td>
                                 <td><%= transaction.note || '-' %></td>
                             </tr>
                     <%}) %>
