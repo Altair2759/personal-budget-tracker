@@ -28,6 +28,7 @@
         <!-- Section on the right hand side where the user log in or register -->
          <section class="login-section">
             <form action="/login" method="POST">
+                <p style="color: red;"><i class="fa-solid fa-info"></i> This website will only be deployed for one week max then wil be taken down to do further work and improvements</p>
                 <h2>Get started with BudgetTracker</h2>
                 <p>Try BudgetTracker for free</p>
 
@@ -40,10 +41,10 @@
                 <hr>
                 <h3>Sign In</h3>
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" required placeholder="Demo user: Test">
 
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" required placeholder="Demo password: Test123">
 
                 <button type="submit">Log In</button>
                 <p>Dont have an account? <a href="/register">Create Account</a></p>
